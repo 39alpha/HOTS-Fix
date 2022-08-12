@@ -29,7 +29,7 @@ def convert_all_cdf_to_csv(path):
         this_df = get_dataframe_from_cdf(net_cdf_file)
         first_df = pd.concat([first_df, this_df], ignore_index=False)
     
-    first_df.to_csv(path + "raw_combined_data.csv")
+    first_df.to_csv(path + "combined_data.csv")
 
 if __name__ == "__main__":
     convert_all_cdf_to_csv("..\\data\\raw-hots\\")
