@@ -1,0 +1,3 @@
+include hots_fix/models/*.sk
+include data/raw-hots/*.nc
+incldue data/parsed/*.csv

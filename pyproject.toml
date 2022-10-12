@@ -1,0 +1,17 @@
+[project]
+name = "hots_fix"
+version = "0.1.0"
+dependencies = [
+    "sklearn",
+    "pandas",
+    "numpy",
+    'importlib-metadata; python_version>="3.7"',
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+# All the following settings are optional:
+include = ["hots_fix*", "data*", "hots_fix/models*"]  # ["*"] by default
+exclude = ["notebooks"]  # empty by default
