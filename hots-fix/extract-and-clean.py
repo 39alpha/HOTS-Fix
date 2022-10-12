@@ -1,6 +1,7 @@
 import netCDF4
 import pandas as pd
 import glob
+import os
 
 def get_dataframe_from_cdf(cdf_file):
     """ Convert the data from a netCDF file to a DataFrame.
@@ -32,21 +33,21 @@ def convert_all_cdf_to_csv(path):
     first_df.to_csv(path + "combined_data.csv")
 
 
-def clean_hots():
+def clean_hots(path):
     """Clean the raw data from HOTS to make sure it's suitable for training the prediction method.
     """
-    combined_data = pd.read_csv("..\\data\\raw-hots\\combined_data.csv", index_col = 0)
+    combined_data = pd.read_csv(os.path.join(path, "combined_data.csv"), index_col = 0)
     minimum_data = combined_data.query("press > 0 & temp > 0 & dic > 0 & ph > 0")
     keeper_cols = ['crn','stn','cast','press',
                    'theta','sigma','temp',
                    'csal','coxy','dic','ph',
                    'alk','phos','nit','sil',
                    'doc']
-    keep_min_data = combined_data[keeper_cols]
+    keep_min_data = minimum_data[keeper_cols]
     keep_min_data = keep_min_data[(keep_min_data > 0).all(1)]
 
     keep_min_data.to_csv("..\\data\parsed\\ideal-variables-2022.csv")
 
 if __name__ == "__main__":
-    # convert_all_cdf_to_csv("..\\data\\raw-hots\\")
-    clean_hots()
+    convert_all_cdf_to_csv("..\\data\\raw-hots\\")
+    clean_hots("..\\data\\raw-hots\\")
