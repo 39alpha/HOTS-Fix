@@ -39,7 +39,7 @@ If you simply want to use `HOTS-Fix` you can just install it via
 This will use the prebuilt models based on `39 Alpha` data cleaning and model training.
 The relative accuracy (e.g. Mean % Error) of these models are shown in the table below
 
-![image](/hots_data/models/RF_Prediction_Accuracy_Cast_Data.jpeg)
+![image](/hots_fix/models/RF_Prediction_Accuracy_Cast_Data.jpeg)
 
 ### Data processing and Model Building
 
