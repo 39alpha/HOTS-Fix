@@ -41,10 +41,78 @@ The relative accuracy (e.g. Mean % Error) of these models are shown in the table
 
 <img src="/hots_fix/models/RF_Prediction_Accuracy_Cast_Data.jpeg" alt="Accuracy" width="400"/>
 
-
 ### Data processing and Model Building
+The data provided in this repository was collected from HOTS using the method described below and saved as NetCDF files in `data/raw-hots`. The pipeline to convert the NetCDF files to .csv and then train the prediction models is done using the `hots_fix/build_models.py` file, which contains the data cleaning and filtering steps.
 
-## Example
+This code could be adapted to achieve different modelling objectives or use different sets of data.
 
 ## Limitations
+
+This predictions made by these models have relatively high accuracy for the HOTS dataset. But the regularity these models capture is specific to the HOTs dataset, so it does not generalize to different regions of the ocean (such as Bermuda for example). This was tested using the BATS dataset, and that work is not shown here. If you want to use this model in different regions of the ocean i) we discourage that, ii) you should test the accuracy for your specific use case. 
+
+## Examples
+
+You can use multiple different input formats for the prediction. The simplest is the
+is to use a `list` but you need to ensure the list ordered correctly.
+
+```
+>>> import hots_fix
+>>> example_cast_data = [22.709, 130.4, 35.1289, 212.9] # [temp, press, csal, coxy]
+>>> hots_fix.predict(example_cast_data) # array([2306.94])
+```
+
+If you don't want to worry about the order of the variables you can use a dictionary, or a
+DataFrame (which can use multiple rows)
+```
+>>> import numpy as np
+>>> import pandas as pd
+>>> import hots_fix
+>>> example_data = pd.DataFrame(np.array([22.709, 130.4, 35.1289, 212.9]).reshape(1,-1),
+                                columns = ["temp", "press", "csal", "coxy"])
+>>> hots_fix.predict(example_data) # array([2306.94])
+```
+
+
+## Source Data 
+This data is from Hawaiian Ocean timeseries datasets. 
+
+It was collected on February 26th 2022 using the HOT-DOGS web tool (https://hahana.soest.hawaii.edu/hot/hot-dogs/bextraction.html)
+
+The Data comes from the `Bottle` Selection tool. 
+
+The following query was selected:
+
+Stations: 1,2,6,8,50,52 (all were performed in sequence as different queries)
+
+Dates (default range): Oct, 0, 1, 1988 - Dec 3, 1, 2020
+
+Fields:
+- Potential Temperature 
+- Potential Density 
+- CTD Temperature
+- CTD Salinity 	
+- CTD Oxygen 
+- Bottle Salinity
+- Bottle Dissolved Oxygen 
+- Dissolved Inorganic Carbon 
+- pH
+- Alkalinity 
+- Phosphate 
+- Nitrate + Nitrite
+- Nitrite 
+- Silicate 
+- Dissolved Organic Phosphorus
+- Dissolved Organic Nitrogen 
+- Dissolved Organic Carbon 
+- Total Dissolved Phosphorus
+- Total Dissolved Nitrogen 
+- Particulate Phosphorus 
+- Particulate Nitrogen
+- Particulate Silica 
+- Particulate Carbon 
+- Low-Level Phosphorus 
+- Low-Level Nitrogen 
+
+A warning was raised that Analytical Methods have changed over the time range. 
+
 

@@ -48,15 +48,20 @@ def train_rf(X,y):
         return the Mean absolute error from a test/train split (25% test) and
         then return a model trained on all the data for production
     """
+    # Test train split
     X_train, X_test, y_train, y_test = train_test_split(X, y)
+    # Center/Scale and do random forest regression
     rf_pipe = make_pipeline(StandardScaler(), RandomForestRegressor())
+    # Fit the model on trainning data
     rf_pipe.fit(X_train,y_train)
+    # Predict
     y_fit = rf_pipe.predict(X_test)
+    # Measure error
     mae = np.mean(abs(y_fit - y_test))
-
+    # Retrain using full data
     full_rf_pipe = make_pipeline(StandardScaler(), RandomForestRegressor())
     full_rf_pipe.fit(X_train,y_train)
-
+    # Return error and full trainned model
     return mae, full_rf_pipe
 
 if __name__ == "__main__":
