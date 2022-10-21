@@ -58,7 +58,7 @@ is to use a `list` but you need to ensure the list ordered correctly.
 ```
 >>> import hots_fix
 >>> example_cast_data = [22.709, 130.4, 35.1289, 212.9] # [temp, press, csal, coxy]
->>> hots_fix.predict(example_cast_data) # array([2306.94])
+>>> hots_fix.predict("alk", example_cast_data) # array([2306.94])
 ```
 
 If you don't want to worry about the order of the variables you can use a dictionary, or a
@@ -69,7 +69,7 @@ DataFrame (which can use multiple rows)
 >>> import hots_fix
 >>> example_data = pd.DataFrame(np.array([22.709, 130.4, 35.1289, 212.9]).reshape(1,-1),
                                 columns = ["temp", "press", "csal", "coxy"])
->>> hots_fix.predict(example_data) # array([2306.94])
+>>> hots_fix.predict("alk", example_data) # array([2306.94])
 ```
 
 
